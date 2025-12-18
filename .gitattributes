@@ -1,0 +1,7 @@
+# Ignorar ficheiros gerados e bibliotecas nas estatísticas de linguagem
+*.html linguist-generated=true
+*.css linguist-generated=true
+*.js linguist-generated=true
+*_files/ linguist-generated=true
+libs/ linguist-generated=true
+*.pdf linguist-generated=true
