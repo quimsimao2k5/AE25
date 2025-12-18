@@ -5,3 +5,7 @@
 *_files/ linguist-generated=true
 libs/ linguist-generated=true
 *.pdf linguist-generated=true
+
+# Forçar Rmd e Qmd a contar como R
+*.Rmd linguist-language=R
+*.qmd linguist-language=R
