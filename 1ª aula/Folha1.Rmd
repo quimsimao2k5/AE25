@@ -1,0 +1,289 @@
+---
+title: "Folha de Exercícios 1 — Estatística Descritiva"
+subtitle: dplyr • tidyr • joins
+date: "`r format(Sys.Date(), '%d-%m-%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    df_print: paged
+    output_file: "folha1AE25.html"
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    output_file: "meu_pdf.pdf"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE)
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyverse)
+  library(ggplot2)
+  # library(lubridate)  # se precisar de datas
+})
+```
+
+Recriar o dataset `alunos` tal como no enunciado (para garantir reprodutibilidade)
+
+```{r}
+set.seed(1234)
+n <- 200
+alunos <- tibble(
+  id            = 1:n,
+  curso         = sample(c("CC", "SI"), n, replace = TRUE, prob = c(.65, .35)),
+  ano           = sample(1:3, n, replace = TRUE, prob = c(.4, .35, .25)),
+  sexo          = sample(c("F", "M"), n, replace = TRUE),
+  horas_estudo  = round(rlnorm(n, meanlog = log(6), sdlog = 0.5), 1),
+  faltas        = pmax(0, round(rpois(n, lambda = 3) - rbinom(n, 1, .1)*3)),
+  nota          = pmin(20,
+                       pmax(0,
+                            round( 8 +
+                                     0.6 * pmin(horas_estudo, 20) -
+                                     0.4 * pmin(faltas, 10) +
+                                     rnorm(n, 0, 2.5), 1)))
+) %>%
+  mutate(
+    nota = replace(nota, sample(1:n, 3), c(2, 19.5, 0)),
+    horas_estudo = replace(horas_estudo, sample(1:n, 6), NA_real_)
+  )
+```
+
+## Exercício
+
+Considere o tibble `alunos`.
+
+(a) Indique o tamanho amostral.
+
+(b) Classifique cada variável como categórica (nominal / ordinal) ou quantitativa (discreta / contínua).
+
+```{r}
+# (a) tamanho amostral (n)
+n_rows <- nrow(alunos)
+n_rows
+```
+
+## Exercício — Analise a variável `nota`
+  
+(a) Calcule média, mediana, desvio - padrão, e IQR.
+
+(b) Interprete diferenças entre média e mediana (assimetria ? ).
+
+```{r}
+nota_stats <- alunos %>%
+  summarise(
+    n = sum(!is.na(nota)),
+    media = mean(nota, na.rm = TRUE),
+    mediana = median(nota, na.rm = TRUE),
+    sd = sd(nota, na.rm = TRUE),
+    IQR = IQR(nota, na.rm = TRUE)
+  )
+nota_stats
+```
+
+```{r}
+# comparação média vs mediana e histograma rápido
+nota_stats %>% mutate(diff = media - mediana)
+
+ggplot(alunos, aes(x = nota)) +
+  geom_histogram(binwidth = 1,
+                 fill = "lightblue",
+                 color = "black") +
+  labs(title = "Histograma das notas", x = "Nota", y = "Frequência")
+```
+
+* Insere aqui a interpretação:compara media vs mediana
+se média > mediana sugere assimetria à direita, etc. *
+  
+## Exercício — Outliers (Tukey)
+  
+  (a) Determine barreiras de Tukey:Q1 - 1.5×IQR e Q3 + 1.5×IQR para `nota`.
+
+(b) Liste observações classificadas como outliers.
+
+(c) Faça um boxplot e anote a presença de outliers.
+
+### RESPOSTA (a,b,c)
+
+```{r}
+qs <- quantile(alunos$nota, probs = c(0.25, 0.75), na.rm = TRUE)
+Q1 <- qs[1]
+Q3 <- qs[2]
+IQR_nota <- Q3 - Q1
+lower_bound <- Q1 - 1.5 * IQR_nota
+upper_bound <- Q3 + 1.5 * IQR_nota
+list(
+  Q1 = Q1,
+  Q3 = Q3,
+  IQR = IQR_nota,
+  lower = lower_bound,
+  upper = upper_bound
+)
+```
+
+```{r}
+outliers_vals <- alunos %>%
+  mutate(is_out = if_else(nota < lower_bound |
+                            nota > upper_bound, TRUE, FALSE)) %>%
+  filter(is_out) %>%
+  arrange(nota) %>%
+  select(id, curso, sexo, horas_estudo, faltas, nota)
+outliers_vals
+```
+
+```{r}
+ggplot(alunos, aes(x = "", y = nota)) +
+  geom_boxplot(outlier.colour = "red", outlier.size = 2) +
+  geom_jitter(width = 0.1, alpha = 0.4) +
+  labs(title = "Boxplot de notas (outliers em vermelho)", x = "", y = "Nota")
+```
+
+* Comenta a presença / quantidade de outliers listados acima. *
+  
+## Exercício — Histograma + densidade para `nota`
+  
+(a) Construa um histograma comente a escolha de `binwidth`.
+
+(b) Sobreponha uma densidade (`geom_density`).
+
+### RESPOSTA 4(a,b)
+
+```{r}
+# histograma com densidade sobreposta
+binw <- 1
+p_hist_dens <- ggplot(alunos, aes(x = nota)) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = binw,
+    fill = "skyblue",
+    color = "black",
+    alpha = 0.6
+  ) +
+  geom_density(size = 1, color = "red") +
+  labs(
+    title = paste0("Histograma de notas (binwidth = ", binw, ") com densidade"),
+    x = "Nota",
+    y = "Densidade"
+  )
+
+p_hist_dens
+```
+
+* Comenta por que escolheste `binwidth = 1` (ex.:notas 0 - 20,
+                                             passo natural de 1,
+                                             equilíbrio entre detalhe e suavidade). *
+  
+## Exercício — Comparar `nota` entre `curso` e `sexo`
+  
+(a) Crie boxplots lado a lado por curso
+comente diferenças de centro e dispersão.
+
+(b) Produza uma tabela - resumo por curso e sexo (n, média, mediana, IQR).
+
+(c) Discuta se diferenças podem ser atribuídas a distribuições ou a outliers.
+
+### RESPOSTA 5(a,b,c)
+
+```{r}
+# boxplots por curso
+ggplot(alunos, aes(x = curso, y = nota, fill = curso)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Distribuição da nota por curso", x = "Curso", y = "Nota") +
+  theme_minimal()
+```
+
+```{r}
+resumo_curso_sexo <- alunos %>%
+  group_by(curso, sexo) %>%
+  summarise(
+    n = n(),
+    media = mean(nota, na.rm = TRUE),
+    mediana = median(nota, na.rm = TRUE),
+    IQR = IQR(nota, na.rm = TRUE)
+  ) %>%
+  arrange(curso, sexo)
+resumo_curso_sexo
+```
+
+```{r}
+# gráfico com facet por sexo para visualizar diferenças
+ggplot(alunos, aes(x = curso, y = nota, fill = curso)) +
+  geom_boxplot() +
+  facet_wrap( ~ sexo) +
+  labs(title = "Nota por curso e sexo (faceted)")
+```
+
+* Discute se diferenças são generalizadas (medianas distintas) ou influenciadas por outliers (diferença entre média /
+                                                                                                mediana, presença de pontos extremos). *
+  
+## Exercício — Horas de estudo vs nota
+  
+(a) Gráfico de dispersão trate os NAs.
+
+(b) Calcule correlação de Pearson e Spearman comente.
+
+### RESPOSTA 6(a,b)
+
+```{r}
+alunos_clean <- alunos %>% filter(!is.na(horas_estudo))
+
+ggplot(alunos_clean, aes(x = horas_estudo, y = nota)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm",
+              se = TRUE,
+              color = "red") +
+  labs(title = "Horas de estudo vs Nota", x = "Horas de estudo", y = "Nota")
+```
+
+```{r}
+# correlações
+pearson <- cor(alunos_clean$horas_estudo, alunos_clean$nota, method = "pearson")
+spearman <- cor(alunos_clean$horas_estudo, alunos_clean$nota, method = "spearman")
+list(pearson = pearson, spearman = spearman)
+```
+
+* Interpreta se a relação é linear (Pearson) e / ou monótona (Spearman), e se outliers influenciam as estimativas. *
+  
+## Exercício — Transformação log
+  
+  (a) Observe a distribuição de `horas_estudo` (histograma / densidade).
+
+(b) Aplique transformação `log` a `horas_estudo` e volte a comparar com `nota`.
+
+(c) Comente o efeito da transformação na linearidade e heterocedasticidade.
+
+### RESPOSTA 7(a,b,c)
+
+```{r}
+# distribuição original
+alunos %>% filter(!is.na(horas_estudo)) %>%
+  ggplot(aes(x = horas_estudo)) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "lightgreen",
+    color = "black"
+  ) +
+  geom_density(aes(y = ..count..), inherit.aes = TRUE, alpha = 0.2)
+```
+
+```{r}
+alunos %>% filter(!is.na(horas_estudo)) %>%
+  mutate(log_horas = log(horas_estudo)) %>%
+  ggplot(aes(x = log_horas, y = nota)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm",
+              se = TRUE,
+              color = "blue") +
+  labs(title = "Log(horas_estudo) vs Nota")
+```
+
+```{r}
+# comparar linearidade/heterocedasticidade visualmente: lado a lado
+p1 <- alunos %>% filter(!is.na(horas_estudo)) %>% ggplot(aes(x = horas_estudo, y = nota)) + geom_point() + geom_smooth(method = "lm") + labs(title = "Original")
+
+p2 <- alunos %>% filter(!is.na(horas_estudo)) %>% mutate(log_horas = log(horas_estudo)) %>% ggplot(aes(x = log_horas, y = nota)) + geom_point() + geom_smooth(method = "lm") + labs(title = "Log-transformed")
+
+library(gridExtra)
+grid.arrange(p1, p2, ncol = 2)
+```

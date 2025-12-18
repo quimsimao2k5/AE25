@@ -1,0 +1,801 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  portuguese,
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Métodos de Regularização em Regressão: Ridge e Lasso},
+  pdfauthor={Soraia Pereira},
+  pdflang={pt},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Métodos de Regularização em Regressão: Ridge e Lasso}
+\author{Soraia Pereira}
+\date{2026-12-10}
+\begin{document}
+\maketitle
+
+
+\section{Implementação em R
+(pacotes)}\label{implementauxe7uxe3o-em-r-pacotes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# instalar se necessário}
+\NormalTok{pkgs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{,}\StringTok{"tidyverse"}\NormalTok{,}\StringTok{"broom"}\NormalTok{)}
+\NormalTok{new }\OtherTok{\textless{}{-}} \FunctionTok{setdiff}\NormalTok{(pkgs, }\FunctionTok{rownames}\NormalTok{(}\FunctionTok{installed.packages}\NormalTok{()))}
+\ControlFlowTok{if}\NormalTok{(}\FunctionTok{length}\NormalTok{(new)) }\FunctionTok{install.packages}\NormalTok{(new)}
+\FunctionTok{library}\NormalTok{(glmnet); }\FunctionTok{library}\NormalTok{(tidyverse); }\FunctionTok{library}\NormalTok{(broom)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{\texorpdfstring{Exemplo 1:
+\texttt{mtcars}}{Exemplo 1: mtcars}}\label{exemplo-1-mtcars}
+
+Vamos prever \texttt{mpg} a partir de \texttt{disp}, \texttt{hp},
+\texttt{wt}, \texttt{qsec}, \texttt{am}, \texttt{gear}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{D }\OtherTok{\textless{}{-}}\NormalTok{ mtcars }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(am, gear), factor))}
+\CommentTok{\# Matriz modelo (one{-}hot sem intercepto)}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ disp }\SpecialCharTok{+}\NormalTok{ hp }\SpecialCharTok{+}\NormalTok{ wt }\SpecialCharTok{+}\NormalTok{ qsec }\SpecialCharTok{+}\NormalTok{ am }\SpecialCharTok{+}\NormalTok{ gear, }\AttributeTok{data =}\NormalTok{ D)[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ D}\SpecialCharTok{$}\NormalTok{mpg}
+\CommentTok{\# grid de lambdas padrão do glmnet}
+\NormalTok{fit\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{)   }\CommentTok{\# ridge}
+\NormalTok{fit\_lasso }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{)   }\CommentTok{\# lasso}
+\NormalTok{fit\_ridge; fit\_lasso}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:  glmnet(x = X, y = y, alpha = 0) 
+
+    Df  %Dev Lambda
+1    7  0.00 5147.0
+2    7  0.74 4690.0
+3    7  0.81 4273.0
+4    7  0.89 3894.0
+5    7  0.98 3548.0
+6    7  1.07 3232.0
+7    7  1.18 2945.0
+8    7  1.29 2684.0
+9    7  1.41 2445.0
+10   7  1.55 2228.0
+11   7  1.70 2030.0
+12   7  1.86 1850.0
+13   7  2.04 1685.0
+14   7  2.23 1536.0
+15   7  2.45 1399.0
+16   7  2.68 1275.0
+17   7  2.93 1162.0
+18   7  3.21 1058.0
+19   7  3.52  964.5
+20   7  3.85  878.8
+21   7  4.21  800.7
+22   7  4.60  729.6
+23   7  5.03  664.8
+24   7  5.49  605.7
+25   7  6.00  551.9
+26   7  6.54  502.9
+27   7  7.14  458.2
+28   7  7.78  417.5
+29   7  8.48  380.4
+30   7  9.24  346.6
+31   7 10.05  315.8
+32   7 10.93  287.8
+33   7 11.88  262.2
+34   7 12.89  238.9
+35   7 13.98  217.7
+36   7 15.15  198.3
+37   7 16.39  180.7
+38   7 17.72  164.7
+39   7 19.13  150.0
+40   7 20.62  136.7
+41   7 22.20  124.6
+42   7 23.86  113.5
+43   7 25.61  103.4
+44   7 27.43   94.2
+45   7 29.34   85.9
+46   7 31.31   78.2
+47   7 33.35   71.3
+48   7 35.45   65.0
+49   7 37.60   59.2
+50   7 39.79   53.9
+51   7 42.02   49.1
+52   7 44.26   44.8
+53   7 46.51   40.8
+54   7 48.75   37.2
+55   7 50.98   33.9
+56   7 53.17   30.9
+57   7 55.33   28.1
+58   7 57.42   25.6
+59   7 59.46   23.3
+60   7 61.42   21.3
+61   7 63.29   19.4
+62   7 65.07   17.7
+63   7 66.76   16.1
+64   7 68.35   14.7
+65   7 69.84   13.4
+66   7 71.22   12.2
+67   7 72.51   11.1
+68   7 73.69   10.1
+69   7 74.78    9.2
+70   7 75.78    8.4
+71   7 76.69    7.6
+72   7 77.51    7.0
+73   7 78.26    6.3
+74   7 78.94    5.8
+75   7 79.56    5.3
+76   7 80.12    4.8
+77   7 80.62    4.4
+78   7 81.08    4.0
+79   7 81.49    3.6
+80   7 81.86    3.3
+81   7 82.21    3.0
+82   7 82.52    2.7
+83   7 82.80    2.5
+84   7 83.06    2.3
+85   7 83.30    2.1
+86   7 83.52    1.9
+87   7 83.73    1.7
+88   7 83.92    1.6
+89   7 84.09    1.4
+90   7 84.26    1.3
+91   7 84.42    1.2
+92   7 84.57    1.1
+93   7 84.71    1.0
+94   7 84.84    0.9
+95   7 84.97    0.8
+96   7 85.09    0.7
+97   7 85.20    0.7
+98   7 85.31    0.6
+99   7 85.42    0.6
+100  7 85.52    0.5
+\end{verbatim}
+
+\begin{verbatim}
+
+Call:  glmnet(x = X, y = y, alpha = 1) 
+
+   Df  %Dev Lambda
+1   0  0.00 5.1470
+2   1 12.78 4.6900
+3   1 23.39 4.2730
+4   2 32.47 3.8940
+5   2 40.22 3.5480
+6   3 46.85 3.2320
+7   3 52.93 2.9450
+8   3 57.98 2.6840
+9   3 62.18 2.4450
+10  3 65.66 2.2280
+11  3 68.55 2.0300
+12  3 70.95 1.8500
+13  3 72.94 1.6850
+14  3 74.60 1.5360
+15  3 75.97 1.3990
+16  3 77.11 1.2750
+17  3 78.05 1.1620
+18  3 78.84 1.0580
+19  4 79.61 0.9645
+20  4 80.35 0.8788
+21  4 80.98 0.8007
+22  5 81.54 0.7296
+23  4 82.30 0.6648
+24  4 82.89 0.6057
+25  4 83.38 0.5519
+26  4 83.79 0.5029
+27  4 84.13 0.4582
+28  4 84.41 0.4175
+29  4 84.64 0.3804
+30  4 84.84 0.3466
+31  4 85.00 0.3158
+32  4 85.13 0.2878
+33  4 85.24 0.2622
+34  4 85.33 0.2389
+35  4 85.41 0.2177
+36  4 85.47 0.1983
+37  4 85.53 0.1807
+38  4 85.57 0.1647
+39  4 85.61 0.1500
+40  5 85.65 0.1367
+41  5 85.69 0.1246
+42  5 85.73 0.1135
+43  5 85.75 0.1034
+44  5 85.78 0.0942
+45  5 85.80 0.0859
+46  5 85.82 0.0782
+47  5 85.83 0.0713
+48  6 85.94 0.0649
+49  6 86.05 0.0592
+50  6 86.14 0.0539
+51  6 86.21 0.0491
+52  6 86.27 0.0448
+53  6 86.32 0.0408
+54  6 86.37 0.0372
+55  6 86.40 0.0339
+56  6 86.43 0.0309
+57  7 86.46 0.0281
+58  7 86.49 0.0256
+59  7 86.52 0.0233
+60  7 86.54 0.0213
+61  7 86.56 0.0194
+62  7 86.57 0.0177
+63  7 86.58 0.0161
+64  7 86.59 0.0147
+65  7 86.60 0.0134
+66  7 86.61 0.0122
+67  7 86.61 0.0111
+68  7 86.62 0.0101
+69  7 86.62 0.0092
+70  7 86.63 0.0084
+71  7 86.63 0.0076
+72  7 86.63 0.0070
+73  7 86.63 0.0063
+74  7 86.63 0.0058
+75  7 86.64 0.0053
+76  7 86.64 0.0048
+77  7 86.64 0.0044
+78  7 86.64 0.0040
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Curvas de coeficientes}\label{curvas-de-coeficientes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(fit\_ridge, }\AttributeTok{xvar =} \StringTok{"lambda"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{main =} \StringTok{"Ridge: caminhos dos coef."}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fit\_lasso, }\AttributeTok{xvar =} \StringTok{"lambda"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{main =} \StringTok{"Lasso: caminhos dos coef."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula6_files/figure-pdf/unnamed-chunk-3-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+Observe que o \textbf{lasso} reduz coeficientes a zero à medida que
+\(\lambda\) cresce; o \textbf{ridge} apenas contrai.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Escolha de \(\lambda\) por validação
+cruzada}{Escolha de \textbackslash lambda por validação cruzada}}\label{escolha-de-lambda-por-validauxe7uxe3o-cruzada}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{cv\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{nfolds =} \DecValTok{10}\NormalTok{)}
+\NormalTok{cv\_lasso }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{nfolds =} \DecValTok{10}\NormalTok{)}
+\NormalTok{cv\_ridge}\SpecialCharTok{$}\NormalTok{lambda.min; cv\_ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.5146981
+\end{verbatim}
+
+\begin{verbatim}
+[1] 4.373665
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv\_lasso}\SpecialCharTok{$}\NormalTok{lambda.min; cv\_lasso}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.1134977
+\end{verbatim}
+
+\begin{verbatim}
+[1] 1.274947
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(cv\_ridge); }\FunctionTok{title}\NormalTok{(}\StringTok{"CV Ridge"}\NormalTok{, }\AttributeTok{line =} \FloatTok{2.5}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(cv\_lasso); }\FunctionTok{title}\NormalTok{(}\StringTok{"CV Lasso"}\NormalTok{, }\AttributeTok{line =} \FloatTok{2.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula6_files/figure-pdf/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Modelos finais e
+predição}\label{modelos-finais-e-prediuxe7uxe3o}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(X)), }\AttributeTok{size =} \FunctionTok{round}\NormalTok{(}\FloatTok{0.7}\SpecialCharTok{*}\FunctionTok{nrow}\NormalTok{(X)))}
+\NormalTok{Xtr }\OtherTok{\textless{}{-}}\NormalTok{ X[idx,]; ytr }\OtherTok{\textless{}{-}}\NormalTok{ y[idx]}
+\NormalTok{Xte }\OtherTok{\textless{}{-}}\NormalTok{ X[}\SpecialCharTok{{-}}\NormalTok{idx,]; yte }\OtherTok{\textless{}{-}}\NormalTok{ y[}\SpecialCharTok{{-}}\NormalTok{idx]}
+\NormalTok{cv\_ridge2 }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(Xtr, ytr, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{)}
+\NormalTok{cv\_lasso2 }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(Xtr, ytr, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{)}
+\NormalTok{pr\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(cv\_ridge2, }\AttributeTok{newx =}\NormalTok{ Xte, }\AttributeTok{s =} \StringTok{"lambda.min"}\NormalTok{)}
+\NormalTok{pr\_lasso }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(cv\_lasso2, }\AttributeTok{newx =}\NormalTok{ Xte, }\AttributeTok{s =} \StringTok{"lambda.min"}\NormalTok{)}
+\NormalTok{rmse }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(a,b) }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{((a}\SpecialCharTok{{-}}\NormalTok{b)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{modelo =} \FunctionTok{c}\NormalTok{(}\StringTok{"ridge"}\NormalTok{,}\StringTok{"lasso"}\NormalTok{),}
+  \AttributeTok{RMSE =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rmse}\NormalTok{(yte, pr\_ridge[,}\DecValTok{1}\NormalTok{]), }\FunctionTok{rmse}\NormalTok{(yte, pr\_lasso[,}\DecValTok{1}\NormalTok{]))}
+\NormalTok{)}
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 2
+  modelo  RMSE
+  <chr>  <dbl>
+1 ridge   2.73
+2 lasso   2.63
+\end{verbatim}
+
+\section{Exemplo 2 (p \textgreater{} n / correlações): dados
+sintéticos}\label{exemplo-2-p-n-correlauxe7uxf5es-dados-sintuxe9ticos}
+
+Gerar dados com colinearidade forte e \(p=20\), \(n=60\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{321}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{60}\NormalTok{; p }\OtherTok{\textless{}{-}} \DecValTok{20}
+\NormalTok{Sigma }\OtherTok{\textless{}{-}} \FloatTok{0.7}\SpecialCharTok{\^{}}\FunctionTok{abs}\NormalTok{(}\FunctionTok{outer}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\StringTok{"{-}"}\NormalTok{))  }\CommentTok{\# matriz Toeplitz (AR1)}
+\NormalTok{Z }\OtherTok{\textless{}{-}}\NormalTok{ MASS}\SpecialCharTok{::}\FunctionTok{mvrnorm}\NormalTok{(n, }\AttributeTok{mu =} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, p), }\AttributeTok{Sigma =}\NormalTok{ Sigma)}
+\NormalTok{beta\_true }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, p}\DecValTok{{-}5}\NormalTok{))}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ Z }\SpecialCharTok{\%*\%}\NormalTok{ beta\_true }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\AttributeTok{sd=}\DecValTok{3}\NormalTok{)}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{scale}\NormalTok{(Z)}
+\NormalTok{cv\_r }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{)}
+\NormalTok{cv\_l }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{coef}\NormalTok{(cv\_l, }\AttributeTok{s =} \StringTok{"lambda.min"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.matrix}\NormalTok{() }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{(}\DecValTok{25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            lambda.min
+(Intercept)  0.1993408
+V1           2.7608709
+V2           1.8651526
+V3           4.6950655
+V4           2.6950877
+V5           2.5974331
+V6           0.0000000
+V7           0.0000000
+V8           0.0000000
+V9           0.0000000
+V10          0.0000000
+V11          0.0000000
+V12          0.0000000
+V13          0.0000000
+V14          0.0000000
+V15          0.0000000
+V16          0.0000000
+V17          0.0000000
+V18          0.0000000
+V19          0.6416292
+V20          0.1389642
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lasso} recupera esparsidade (muitos coef. exatos 0).
+\item
+  \textbf{Ridge} tende a reter todos os preditores com pesos pequenos.
+\end{itemize}
+
+\section{Comparação teórica
+resumida}\label{comparauxe7uxe3o-teuxf3rica-resumida}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Propriedade & Ridge (L2) & Lasso (L1) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Contração & Contínua & Contínua + zeros \\
+Seleção de variáveis & Não & Sim \\
+Colinearidade forte & Distribui pesos & Escolhe um (instável) \\
+p \textgreater{} n & Funciona & Funciona \\
+Solução fechada & Sim & Não \\
+Viés & Maior & Pode ser maior \\
+Variância & Menor & Menor (tipicamente) \\
+\end{longtable}
+
+\begin{quote}
+\textbf{Regra de bolso:} quando há \textbf{muitos preditores
+correlacionados}, \textbf{Elastic Net} (combina L1+L2) é frequentemente
+superior.
+\end{quote}
+
+\section{\texorpdfstring{Escolha de \(\lambda\) e
+métricas}{Escolha de \textbackslash lambda e métricas}}\label{escolha-de-lambda-e-muxe9tricas}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{CV k-fold} (padrão em \texttt{cv.glmnet}): escolher
+  \texttt{lambda.min} (menor erro) ou \texttt{lambda.1se} (mais
+  parcimonioso).
+\item
+  Métricas: RMSE, MAE, \(R^2\) em validação/teste.
+\item
+  Reportar \textbf{curvas de CV} e \textbf{caminhos de coeficientes}.
+\end{itemize}
+
+\section{Limitações e extensões}\label{limitauxe7uxf5es-e-extensuxf5es}
+
+\begin{itemize}
+\tightlist
+\item
+  Lasso pode ser instável com preditores muito correlacionados.
+\item
+  Ridge não faz seleção automática.
+\item
+  \textbf{Elastic Net}: \(\alpha\in[0,1]\) interpola Lasso (1) e Ridge
+  (0).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Exemplo rápido: elastic net com alpha=0.5}
+\NormalTok{cv\_en }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{coef}\NormalTok{(cv\_en, }\AttributeTok{s =} \StringTok{"lambda.1se"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{as.matrix}\NormalTok{() }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            lambda.1se
+(Intercept)  0.1993408
+V1           2.3234317
+V2           2.1301774
+V3           4.0862506
+V4           2.7969578
+V5           2.1435526
+\end{verbatim}
+
+\section{Predição e incerteza}\label{prediuxe7uxe3o-e-incerteza}
+
+\begin{itemize}
+\tightlist
+\item
+  Predição pontual via \texttt{predict}.
+\item
+  Intervalos padrão de MQO não se aplicam diretamente; \texttt{glmnet}
+  foca predição.
+\item
+  Para \textbf{intervalos de previsão}: usar re-amostragem (bootstrap)
+  ou métodos pós-seleção.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{99}\NormalTok{)}
+\CommentTok{\# Bootstrap simples do modelo lasso (ilustrativo)}
+\NormalTok{B }\OtherTok{\textless{}{-}} \DecValTok{200}
+\NormalTok{preds }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(B, \{}
+\NormalTok{  id }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(X)), }\AttributeTok{replace=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  fit }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(X[id,], y[id], }\AttributeTok{alpha=}\DecValTok{1}\NormalTok{)}
+  \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit, }\AttributeTok{newx =}\NormalTok{ X[}\DecValTok{1}\NormalTok{,,}\AttributeTok{drop=}\ConstantTok{FALSE}\NormalTok{], }\AttributeTok{s=}\StringTok{"lambda.min"}\NormalTok{))}
+\NormalTok{\})}
+\FunctionTok{quantile}\NormalTok{(preds, }\FunctionTok{c}\NormalTok{(.}\DecValTok{025}\NormalTok{,.}\DecValTok{5}\NormalTok{,.}\DecValTok{975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     2.5%       50%     97.5% 
+-28.53620 -25.16784 -21.60128 
+\end{verbatim}
+
+\section{Exemplo final}\label{exemplo-final}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{7}\NormalTok{)}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(mtcars)), }\AttributeTok{size =} \DecValTok{24}\NormalTok{)}
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ mtcars[idx,]; test }\OtherTok{\textless{}{-}}\NormalTok{ mtcars[}\SpecialCharTok{{-}}\NormalTok{idx,]}
+\NormalTok{Xtr }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., train)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]; ytr }\OtherTok{\textless{}{-}}\NormalTok{ train}\SpecialCharTok{$}\NormalTok{mpg}
+\NormalTok{Xte }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., test)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{];  yte }\OtherTok{\textless{}{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{mpg}
+\NormalTok{cv\_las }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(Xtr, ytr, }\AttributeTok{alpha=}\DecValTok{1}\NormalTok{)}
+\NormalTok{pr }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(cv\_las, }\AttributeTok{newx =}\NormalTok{ Xte, }\AttributeTok{s =} \StringTok{"lambda.1se"}\NormalTok{)}
+\NormalTok{rmse }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{((yte }\SpecialCharTok{{-}}\NormalTok{ pr[,}\DecValTok{1}\NormalTok{])}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\FunctionTok{list}\NormalTok{(}\AttributeTok{lambda\_1se =}\NormalTok{ cv\_las}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se, }\AttributeTok{RMSE\_teste =}\NormalTok{ rmse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$lambda_1se
+[1] 1.794338
+
+$RMSE_teste
+[1] 3.198099
+\end{verbatim}
+
+\section{Exercícios}\label{exercuxedcios}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Reproduza o Exemplo 1 com outro \emph{target} (e.g., \texttt{wt}) e
+  documente diferenças.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{D }\OtherTok{\textless{}{-}}\NormalTok{ mtcars }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(am, gear), factor))}
+\CommentTok{\# Matriz modelo (one{-}hot sem intercepto)}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(wt }\SpecialCharTok{\textasciitilde{}}\NormalTok{ disp }\SpecialCharTok{+}\NormalTok{ hp }\SpecialCharTok{+}\NormalTok{ wt }\SpecialCharTok{+}\NormalTok{ qsec }\SpecialCharTok{+}\NormalTok{ am }\SpecialCharTok{+}\NormalTok{ gear, }\AttributeTok{data =}\NormalTok{ D)[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ D}\SpecialCharTok{$}\NormalTok{wt}
+\CommentTok{\# grid de lambdas padrão do glmnet}
+\NormalTok{fit\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{)   }\CommentTok{\# ridge}
+\NormalTok{fit\_lasso }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(X, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{)   }\CommentTok{\# lasso}
+\NormalTok{fit\_ridge; fit\_lasso}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(fit\_ridge, }\AttributeTok{xvar =} \StringTok{"lambda"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{main =} \StringTok{"Ridge: caminhos dos coef."}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fit\_lasso, }\AttributeTok{xvar =} \StringTok{"lambda"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{main =} \StringTok{"Lasso: caminhos dos coef."}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Em dados sintéticos (p\textgreater n), compare estabilidade da seleção
+  do Lasso com 100 \emph{splits}.
+\item
+  Use \textbf{Elastic Net} e faça \emph{grid search} em
+  \(\alpha \in (0, 0.25, 0.5, 0.75, 1)\), reportando RMSE de teste e nº
+  de variáveis selecionadas.
+\item
+  Represente graficamente as \textbf{curvas dos coeficientes} e
+  interprete.
+\end{enumerate}
+
+\section{Referências}\label{referuxeancias}
+
+\begin{itemize}
+\tightlist
+\item
+  Hastie, Tibshirani \& Friedman (2009). \emph{The Elements of
+  Statistical Learning}.
+\item
+  James et al.~(2021). \emph{An Introduction to Statistical Learning},
+  cap. 6.
+\item
+  Documentação \texttt{glmnet} (vignette): \texttt{vignette("glmnet")}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+
+
+
+\end{document}

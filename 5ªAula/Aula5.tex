@@ -1,0 +1,818 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  portuguese,
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Regressão Linear Múltipla},
+  pdflang={pt},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Regressão Linear Múltipla}
+\author{}
+\date{2026-04-10}
+\begin{document}
+\maketitle
+
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Porquê regressão linear
+\textbf{múltipla}?}{Porquê regressão linear múltipla?}}\label{porquuxea-regressuxe3o-linear-muxfaltipla}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Fenómenos multicausais}: fenómenos reais raramente dependem de
+  uma única variável.
+\item
+  \textbf{Melhor predição}: ao considerar variáveis relevantes reduzimos
+  erro de predição.
+\item
+  \textbf{Separar efeitos}: pretendemos isolar o impacto de cada
+  variável \textbf{mantendo as outras constantes}.
+\item
+  \textbf{Interações}: o efeito de uma variável pode \textbf{depender}
+  do nível de outra (ex.: efeito do treino depende da dieta).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Modelo: forma escalar e
+matricial}\label{modelo-forma-escalar-e-matricial}
+
+Dados \((y_i, x_{i1},\dots,x_{ip})\), \(i=1,\dots,n\): \[
+y_i \;=\; \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i,
+\]
+
+\(\mathbb E[\varepsilon_i]=0,\;
+\mathrm{Var}(\varepsilon_i)=\sigma^2,\;
+\mathrm{Cov}(\varepsilon)=0.\)
+
+\hfill\break
+
+Notação matricial: \(\mathbf y = X\beta + \varepsilon\),
+\(\varepsilon \sim (0,\sigma^2 I)\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{MMQ (OLS)}: \(\hat\beta = (X^\top X)^{-1}X^\top \mathbf y\).\\
+Interpretação de \(\beta_j\): variação \textbf{média} em \(Y\) por
+\textbf{unidade} de \(X_j\), \textbf{mantendo} as restantes fixas.
+
+O estimador MMQ \[
+  \hat\beta=(X^\top X)^{-1}X^\top y
+  \] só existe (e é único) se \(X^\top X\) for invertível ⇒ colunas de
+\(X\) \textbf{linearmente independentes}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Pressupostos sobre os
+\textbf{erros}}{Pressupostos sobre os erros}}\label{pressupostos-sobre-os-erros}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  \textbf{Média zero}\\
+  \(E[\varepsilon\mid X]=0\)
+\item
+  \textbf{Homocedasticidade (variância constante)}\\
+  \(\operatorname{Var}(\varepsilon\mid X)=\sigma^2\)
+\item
+  \textbf{Independência / ausência de autocorrelação}\\
+  \(\operatorname{Cov}(\varepsilon_i,\varepsilon_j\mid X)=0\ (i\neq j)\)
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{O que esperar dos resíduos se OLS é
+adequado}\label{o-que-esperar-dos-resuxedduos-se-ols-uxe9-adequado}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\sum_i \hat{\varepsilon}_i=0\) (modelo com intercept).\\
+\item
+  \(X^\top \hat{\varepsilon} = 0\) (resíduos ortogonais aos
+  regressores).\\
+\item
+  Resíduos vs ajustados: \textbf{sem padrão} e variância aproximadamente
+  constante.\\
+\item
+  QQ-plot: pontos próximos da reta (se normalidade).
+\end{itemize}
+
+\subsection{\texorpdfstring{Exemplo A : \texttt{mtcars} --- consumo vs
+massa, potência e
+caixa}{Exemplo A : mtcars --- consumo vs massa, potência e caixa}}\label{exemplo-a-mtcars-consumo-vs-massa-potuxeancia-e-caixa}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(mtcars)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(broom)}
+\NormalTok{mt }\OtherTok{\textless{}{-}}\NormalTok{ mtcars }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{am =} \FunctionTok{factor}\NormalTok{(am, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"auto"}\NormalTok{,}\StringTok{"manual"}\NormalTok{)),}
+         \AttributeTok{wt\_kg =}\NormalTok{ wt }\SpecialCharTok{*} \FloatTok{453.592} \SpecialCharTok{/} \DecValTok{1000}\NormalTok{)  }\CommentTok{\# wt em milhares de libras; converter para kg}
+\NormalTok{modA }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{+}\NormalTok{ hp }\SpecialCharTok{+}\NormalTok{ am, }\AttributeTok{data =}\NormalTok{ mt)}
+\FunctionTok{summary}\NormalTok{(modA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = mpg ~ wt_kg + hp + am, data = mt)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4221 -1.7924 -0.3788  1.2249  5.5317 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 34.002875   2.642659  12.867 2.82e-13 ***
+wt_kg       -6.346178   1.995120  -3.181 0.003574 ** 
+hp          -0.037479   0.009605  -3.902 0.000546 ***
+ammanual     2.083710   1.376420   1.514 0.141268    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.538 on 28 degrees of freedom
+Multiple R-squared:  0.8399,    Adjusted R-squared:  0.8227 
+F-statistic: 48.96 on 3 and 28 DF,  p-value: 2.908e-11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tidy}\NormalTok{(modA, }\AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  <chr>          <dbl>     <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+1 (Intercept)  34.0      2.64        12.9  2.82e-13  28.6      39.4   
+2 wt_kg        -6.35     2.00        -3.18 3.57e- 3 -10.4      -2.26  
+3 hp           -0.0375   0.00961     -3.90 5.46e- 4  -0.0572   -0.0178
+4 ammanual      2.08     1.38         1.51 1.41e- 1  -0.736     4.90  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glance}\NormalTok{(modA)[, }\FunctionTok{c}\NormalTok{(}\StringTok{"r.squared"}\NormalTok{,}\StringTok{"adj.r.squared"}\NormalTok{,}\StringTok{"sigma"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 3
+  r.squared adj.r.squared sigma
+      <dbl>         <dbl> <dbl>
+1     0.840         0.823  2.54
+\end{verbatim}
+
+\textbf{Interpretação.}\\
+- \textbf{wt\_kg}: variação média de \textbf{mpg} por +1 kg,
+\textbf{controlando} hp e am (espera-se coeficiente negativo).\\
+- \textbf{hp}: efeito parcial de potência (mpg ↓ quando hp ↑, dado wt e
+am fixos).\\
+- \textbf{am}: diferença média entre \textbf{manual} e \textbf{auto},
+para os mesmos wt\_kg e hp.\\
+- \(R^2\) ajustado e \(\hat\sigma\) medem qualidade do ajuste e
+dispersão residual.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Efeitos marginais e previsões com
+incerteza}\label{efeitos-marginais-e-previsuxf5es-com-incerteza}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Grella para explorar efeito de wt\_kg mantendo hp, am fixos}
+\NormalTok{grid\_wt }\OtherTok{\textless{}{-}}\NormalTok{ mt }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{hp =} \FunctionTok{median}\NormalTok{(hp), }\AttributeTok{am =}\NormalTok{ am[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{crossing}\NormalTok{(}\AttributeTok{wt\_kg =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{wt\_kg), }\FunctionTok{max}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{wt\_kg), }\AttributeTok{length.out =} \DecValTok{50}\NormalTok{))}
+
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(modA, }\AttributeTok{newdata =}\NormalTok{ grid\_wt, }\AttributeTok{interval =} \StringTok{"confidence"}\NormalTok{)}
+\NormalTok{pred\_p }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(modA, }\AttributeTok{newdata =}\NormalTok{ grid\_wt, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{)}
+
+\FunctionTok{bind\_cols}\NormalTok{(grid\_wt, }\FunctionTok{as\_tibble}\NormalTok{(pred), }\FunctionTok{tibble}\NormalTok{(}\AttributeTok{lwr\_pred =}\NormalTok{ pred\_p[,}\DecValTok{3}\NormalTok{], }\AttributeTok{upr\_pred =}\NormalTok{ pred\_p[,}\DecValTok{3}\NormalTok{])) }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 8
+     hp am     wt_kg   fit   lwr   upr lwr_pred upr_pred
+  <dbl> <fct>  <dbl> <dbl> <dbl> <dbl>    <dbl>    <dbl>
+1   123 manual 0.686  27.1  25.0  29.3     32.8     32.8
+2   123 manual 0.722  26.9  24.8  28.9     32.5     32.5
+3   123 manual 0.759  26.7  24.7  28.6     32.2     32.2
+4   123 manual 0.795  26.4  24.6  28.3     32.0     32.0
+5   123 manual 0.831  26.2  24.4  28.0     31.7     31.7
+6   123 manual 0.867  26.0  24.3  27.7     31.4     31.4
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred\_df }\OtherTok{\textless{}{-}} \FunctionTok{bind\_cols}\NormalTok{(grid\_wt, }\FunctionTok{as\_tibble}\NormalTok{(pred)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{fit=}\NormalTok{fit, }\AttributeTok{lwr=}\NormalTok{lwr, }\AttributeTok{upr=}\NormalTok{upr)}
+
+\FunctionTok{ggplot}\NormalTok{(pred\_df, }\FunctionTok{aes}\NormalTok{(wt\_kg, fit)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin=}\NormalTok{lwr, }\AttributeTok{ymax=}\NormalTok{upr), }\AttributeTok{alpha=}\NormalTok{.}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Massa (kg)"}\NormalTok{, }\AttributeTok{y=}\StringTok{"mpg (média prevista)"}\NormalTok{,}
+       \AttributeTok{title=}\StringTok{"Efeito marginal de wt\_kg com IC da média (95\%) — hp e am fixos"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula5_files/figure-pdf/unnamed-chunk-3-1.pdf}}
+
+\textbf{Leitura.} Banda é \textbf{IC da média}; intervalo de
+\textbf{predição} seria mais largo (variação individual).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Diagnóstico e robustez: resíduos, QQ, distância de
+Cook}\label{diagnuxf3stico-e-robustez-resuxedduos-qq-distuxe2ncia-de-cook}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(modA, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(modA, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(modA, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula5_files/figure-pdf/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Multicolinearidade: VIF e
+interpretação}\label{multicolinearidade-vif-e-interpretauxe7uxe3o}
+
+\begin{itemize}
+\item
+  VIF (Variance Inflation Factor) mede quanto a \textbf{variância} de
+  \(\hat\beta_j\) é \textbf{inflacionada} pela colinearidade de \(X_j\)
+  com os restantes.
+\item
+  Definição via regressão auxiliar de \(X_j\) nas outras preditoras
+  \(X_{-j}\): \[
+  \text{VIF}_j \;=\; \frac{1}{1-R_j^2},
+  \qquad
+  R_j^2 \;=\; R^2\Big(\,X_j \sim X_{-j}\,\Big).
+   \] ---
+\item
+  Relação com a variância de \(\hat\beta_j\): \[
+  \operatorname{Var}(\hat\beta_j)
+  \;=\;
+  \sigma^2\,\frac{\text{VIF}_j}{\sum_i (x_{ij}-\bar x_j)^2}.
+   \]
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(car)}
+
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt }\SpecialCharTok{+}\NormalTok{ hp, }\AttributeTok{data =}\NormalTok{ mtcars)}
+\NormalTok{car}\SpecialCharTok{::}\FunctionTok{vif}\NormalTok{(mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      wt       hp 
+1.766625 1.766625 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Regra prática:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    VIF ≈ 1: sem colinearidade relevante\\
+  \item
+    VIF ≳ 5 (às vezes 10): \textbf{preocupante} →
+    investigar/reparametrizar
+  \end{itemize}
+\item
+  \textbf{Efeito:} VIF alto ⇒ \textbf{erros-padrão grandes}, ICs
+  \textbf{largos}, sinais/valores de \(\hat\beta\) podem oscilar com
+  pequenas mudanças nos dados.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Fatores}\label{fatores}
+
+\begin{itemize}
+\item
+  Em \texttt{lm(mpg\ \textasciitilde{}\ wt\_kg\ +\ hp\ +\ am)}, onde
+  \texttt{am} é \textbf{fator} com níveis \texttt{"auto"} e
+  \texttt{"manual"}, o R cria \textbf{variáveis indicadoras} (0/1) para
+  representar os níveis.
+
+  → Um nível fica como \textbf{base} (escolhido automaticamente,
+  tipicamente o primeiro); os restantes têm um \textbf{coeficiente} que
+  mede o desvio face a essa base.
+\item
+  \textbf{Como ler os coeficientes} (sem interações):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{ammanual}: \textbf{diferença média} (\emph{manual − base})
+    em \texttt{mpg}, \textbf{mantendo} \texttt{wt\_kg} e \texttt{hp}
+    fixos.\\
+    Ex.: \texttt{ammanual\ =\ 2.5} ⇒ carros \emph{manuais} têm
+    \textbf{+2.5 mpg} face à base para o mesmo peso e potência.
+  \end{itemize}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{+}\NormalTok{ hp }\SpecialCharTok{+}\NormalTok{ am, }\AttributeTok{data =}\NormalTok{ mt))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(Intercept)       wt_kg          hp    ammanual 
+34.00287512 -6.34617765 -0.03747873  2.08371013 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Interações: quando o efeito depende de outra
+variável}\label{interauxe7uxf5es-quando-o-efeito-depende-de-outra-variuxe1vel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modA\_int }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{*}\NormalTok{ am }\SpecialCharTok{+}\NormalTok{ hp, }\AttributeTok{data =}\NormalTok{ mt)}
+\FunctionTok{tidy}\NormalTok{(modA\_int, }\AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 7
+  term           estimate std.error statistic  p.value conf.low conf.high
+  <chr>             <dbl>     <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+1 (Intercept)     30.9      2.72        11.4  8.55e-12  25.4     36.5    
+2 wt_kg           -5.55     1.86        -2.98 6.05e- 3  -9.37    -1.73   
+3 ammanual        11.6      4.02         2.87 7.84e- 3   3.30    19.8    
+4 hp              -0.0269   0.00980     -2.75 1.05e- 2  -0.0470  -0.00685
+5 wt_kg:ammanual  -7.89     3.18        -2.48 1.97e- 2 -14.4     -1.36   
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualizar duas retas (auto vs manual) em função de wt\_kg}
+\NormalTok{new\_auto   }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{wt\_kg =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{wt\_kg), }\FunctionTok{max}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{wt\_kg), }\AttributeTok{length.out=}\DecValTok{50}\NormalTok{),}
+                     \AttributeTok{hp =} \FunctionTok{median}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{hp), }\AttributeTok{am =} \FunctionTok{factor}\NormalTok{(}\StringTok{"auto"}\NormalTok{, }\AttributeTok{levels=}\FunctionTok{levels}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{am)))}
+\NormalTok{new\_manual }\OtherTok{\textless{}{-}}\NormalTok{ new\_auto; new\_manual}\SpecialCharTok{$}\NormalTok{am }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\StringTok{"manual"}\NormalTok{, }\AttributeTok{levels=}\FunctionTok{levels}\NormalTok{(mt}\SpecialCharTok{$}\NormalTok{am))}
+
+\NormalTok{pred\_auto   }\OtherTok{\textless{}{-}} \FunctionTok{bind\_cols}\NormalTok{(new\_auto,   }\FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{predict}\NormalTok{(modA\_int, new\_auto, }\AttributeTok{interval=}\StringTok{"confidence"}\NormalTok{)))}
+\NormalTok{pred\_manual }\OtherTok{\textless{}{-}} \FunctionTok{bind\_cols}\NormalTok{(new\_manual, }\FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{predict}\NormalTok{(modA\_int, new\_manual, }\AttributeTok{interval=}\StringTok{"confidence"}\NormalTok{)))}
+
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data=}\NormalTok{pred\_auto, }\FunctionTok{aes}\NormalTok{(wt\_kg, }\AttributeTok{ymin=}\NormalTok{lwr, }\AttributeTok{ymax=}\NormalTok{upr), }\AttributeTok{alpha=}\NormalTok{.}\DecValTok{15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{pred\_auto, }\FunctionTok{aes}\NormalTok{(wt\_kg, fit), }\AttributeTok{size=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data=}\NormalTok{pred\_manual, }\FunctionTok{aes}\NormalTok{(wt\_kg, }\AttributeTok{ymin=}\NormalTok{lwr, }\AttributeTok{ymax=}\NormalTok{upr), }\AttributeTok{alpha=}\NormalTok{.}\DecValTok{15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{pred\_manual, }\FunctionTok{aes}\NormalTok{(wt\_kg, fit), }\AttributeTok{size=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Massa (kg)"}\NormalTok{, }\AttributeTok{y=}\StringTok{"mpg previsto"}\NormalTok{,}
+       \AttributeTok{title=}\StringTok{"Interação wt\_kg × am: inclinações distintas por tipo de caixa"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula5_files/figure-pdf/unnamed-chunk-8-1.pdf}}
+
+\textbf{Leitura.} Se o termo de interação é significativo, o
+\textbf{efeito de wt\_kg} difere entre \texttt{auto} e \texttt{manual}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Exemplo B (aplicação socioeconómica):
+\texttt{swiss}}{Exemplo B (aplicação socioeconómica): swiss}}\label{exemplo-b-aplicauxe7uxe3o-socioeconuxf3mica-swiss}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(swiss)}
+\NormalTok{modS }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Fertility }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Agriculture }\SpecialCharTok{+}\NormalTok{ Examination }\SpecialCharTok{+}\NormalTok{ Education }\SpecialCharTok{+}\NormalTok{ Catholic }\SpecialCharTok{+}\NormalTok{ Infant.Mortality,}
+           \AttributeTok{data =}\NormalTok{ swiss)}
+\FunctionTok{summary}\NormalTok{(modS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = Fertility ~ Agriculture + Examination + Education + 
+    Catholic + Infant.Mortality, data = swiss)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-15.2743  -5.2617   0.5032   4.1198  15.3213 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      66.91518   10.70604   6.250 1.91e-07 ***
+Agriculture      -0.17211    0.07030  -2.448  0.01873 *  
+Examination      -0.25801    0.25388  -1.016  0.31546    
+Education        -0.87094    0.18303  -4.758 2.43e-05 ***
+Catholic          0.10412    0.03526   2.953  0.00519 ** 
+Infant.Mortality  1.07705    0.38172   2.822  0.00734 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.165 on 41 degrees of freedom
+Multiple R-squared:  0.7067,    Adjusted R-squared:  0.671 
+F-statistic: 19.76 on 5 and 41 DF,  p-value: 5.594e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tidy}\NormalTok{(modS, }\AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 7
+  term             estimate std.error statistic     p.value conf.low conf.high
+  <chr>               <dbl>     <dbl>     <dbl>       <dbl>    <dbl>     <dbl>
+1 (Intercept)        66.9     10.7         6.25 0.000000191  45.3      88.5   
+2 Agriculture        -0.172    0.0703     -2.45 0.0187       -0.314    -0.0301
+3 Examination        -0.258    0.254      -1.02 0.315        -0.771     0.255 
+4 Education          -0.871    0.183      -4.76 0.0000243    -1.24     -0.501 
+5 Catholic            0.104    0.0353      2.95 0.00519       0.0329    0.175 
+6 Infant.Mortality    1.08     0.382       2.82 0.00734       0.306     1.85  
+\end{verbatim}
+
+\textbf{Interpretação.}\\
+- Sinal de \texttt{Education} (negativo) sugere menor fertilidade em
+regiões com mais educação, \textbf{controlando} restantes.\\
+- \texttt{Catholic} positivo: efeito marginal mantendo o resto.
+\textbf{Cuidado}: correlação entre preditores muda a interpretação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)); }\FunctionTok{plot}\NormalTok{(modS, }\AttributeTok{which=}\DecValTok{1}\NormalTok{); }\FunctionTok{plot}\NormalTok{(modS, }\AttributeTok{which=}\DecValTok{2}\NormalTok{); }\FunctionTok{plot}\NormalTok{(modS, }\AttributeTok{which=}\DecValTok{5}\NormalTok{); }\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula5_files/figure-pdf/unnamed-chunk-10-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Coeficientes padronizados}\label{coeficientes-padronizados}
+
+\begin{itemize}
+\tightlist
+\item
+  Coeficientes \textbf{padronizados} permitem comparar magnitudes
+  relativas.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swiss\_z }\OtherTok{\textless{}{-}}\NormalTok{ swiss }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), scale))}
+\FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Fertility }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . , }\AttributeTok{data =}\NormalTok{ swiss\_z))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     (Intercept)      Agriculture      Examination        Education 
+    5.161631e-16    -3.129213e-01    -1.647782e-01    -6.704008e-01 
+        Catholic Infant.Mortality 
+    3.476000e-01     2.511360e-01 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{AIC e BIC --- critérios de seleção de
+modelos}\label{aic-e-bic-crituxe9rios-de-seleuxe7uxe3o-de-modelos}
+
+\begin{itemize}
+\item
+  Ideia: equilibrar \textbf{qualidade de ajustamento}
+  (log-verosimilhança) e \textbf{complexidade} (nº de parâmetros \(k\)).
+\item
+  Definições gerais: \[
+  \mathrm{AIC} \;=\; -2\log L(\hat\theta) \;+\; 2k,
+  \qquad
+  \mathrm{BIC} \;=\; -2\log L(\hat\theta) \;+\; k\log n.
+   \] \textbf{AIC} (Akaike Information Criterion) privilegia
+  \textbf{previsão} (penalização \(2k\));
+\end{itemize}
+
+\textbf{BIC} favorece \textbf{parcimónia} (penalização \(k\log n\)).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Como usar} - \textbf{Quanto menor, melhor} (AIC/BIC em valores
+absolutos não têm significado isolado).\\
+- Compare \textbf{modelos ajustados aos mesmos dados}; não é preciso
+serem aninhados.
+
+\textbf{Notas}
+
+\begin{itemize}
+\tightlist
+\item
+  Preferir \textbf{AIC} se o objetivo principal é \textbf{previsão}.\\
+\item
+  Preferir \textbf{BIC} se privilegia
+  \textbf{simplicidade}/interpretação (penaliza mais o número de
+  parâmetros).\\
+\item
+  Não substitui \textbf{diagnóstico} do modelo (resíduos, colinearidade,
+  etc.).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mods }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{base  =} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ mt),}
+  \AttributeTok{pars  =} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{+}\NormalTok{ hp, }\AttributeTok{data =}\NormalTok{ mt),}
+  \AttributeTok{int   =} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{*}\NormalTok{ am }\SpecialCharTok{+}\NormalTok{ hp, }\AttributeTok{data =}\NormalTok{ mt),}
+  \AttributeTok{full  =} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt\_kg }\SpecialCharTok{+}\NormalTok{ hp }\SpecialCharTok{+}\NormalTok{ am }\SpecialCharTok{+}\NormalTok{ qsec }\SpecialCharTok{+}\NormalTok{ gear, }\AttributeTok{data =}\NormalTok{ mt)}
+\NormalTok{)}
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{modelo =} \FunctionTok{names}\NormalTok{(mods),}
+       \AttributeTok{AIC =} \FunctionTok{sapply}\NormalTok{(mods, AIC),}
+       \AttributeTok{BIC =} \FunctionTok{sapply}\NormalTok{(mods, BIC))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 3
+  modelo   AIC   BIC
+  <chr>  <dbl> <dbl>
+1 base    209.  212.
+2 pars    157.  163.
+3 int     152.  160.
+4 full    156.  167.
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Boas práticas}\label{boas-pruxe1ticas}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Verificar pressupostos pela análise dos resíduos.
+\item
+  Verificar \textbf{pontos influentes}.\\
+\item
+  Causalidade ≠ correlação.\\
+\item
+  Explicar coeficientes em \textbf{unidades} e \textbf{cenários}
+  relevantes.\\
+\item
+  Quantificar incerteza: \textbf{ICs} e \textbf{intervalos de predição}.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Exercício}\label{exercuxedcio}
+
+\begin{itemize}
+\tightlist
+\item
+  Ajustar
+  \(\text{mpg} \sim \text{wt}_\text{kg} + \text{hp} + \text{am}\) e
+  reportar IC(95\%) de cada coeficiente.\\
+\item
+  Testar a interação \(\text{wt}_\text{kg}:\text{am}\) e interpretar o
+  termo cruzado.\\
+\item
+  Em \texttt{swiss}, calcular VIFs e discutir colinearidade; refazer o
+  modelo com variáveis padronizadas.\\
+\item
+  Construir um cenário de previsão com \textbf{IC da média} e
+  \textbf{intervalo de predição}.
+\end{itemize}
+
+
+
+
+\end{document}

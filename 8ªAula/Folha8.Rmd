@@ -1,0 +1,228 @@
+---
+title: "Exercícios — Regressão Logística (R)"
+author: ''
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document: default
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+set.seed(123)
+```
+
+# -------------------------------------------------------------
+
+# Exercício 1 — Sobrevivência no Titanic (modelo simples com treino/teste)
+
+Use o conjunto de dados `titanic_train` do package **titanic**, contendo variáveis como `Survived`, `Pclass`, `Sex`, `Age` e `Fare`.
+
+```{r E1-dados, eval=FALSE}
+library(titanic)
+library(dplyr)
+library(ggplot2)
+
+dados_titanic <- titanic_train %>%
+  select(Survived, Pclass, Sex, Age, Fare) %>%
+  na.omit()
+
+dados_titanic$Sex <- factor(dados_titanic$Sex, levels = c("male", "female"))
+
+```
+
+1.  Separe os dados em treino (80%) e teste (20%). Explique porque não se deve avaliar o desempenho do modelo nos mesmos dados usados para o ajustar.
+
+2.  Ajuste, **apenas nos dados de treino**, o modelo:
+
+$$
+\operatorname{logit}\Big(
+P(\text{Survived}=1 \mid \text{Pclass}, \text{Sex}, \text{Age}, \text{Fare})
+\Big)
+=
+\beta_0
++ \beta_1\,\text{Pclass}
++ \beta_2\,\text{Sex}
++ \beta_3\,\text{Age}
++ \beta_4\,\text{Fare}.
+$$
+
+Interprete: - o sinal de $\beta_1$ (classe), - o sinal e significância de $\beta_2$ (sexo).
+
+---
+O sinal de classe é negativo, significando que existe uma proporção inversa entre a classe e a sobrevivencia, isto é, à medida que a classe aumenta, menor é a chance de sobrevivencia.
+
+O sinal de SexFemale é positivo, e a significância mostra que relativamente ao sexo masculino, o sexo feminino tem maior chance de sobreviver.
+---
+
+3.  Usando o **conjunto de teste**, calcule as probabilidades previstas $\hat p_i$.\
+    Com threshold $t = 0.5$, construa a matriz de confusão e calcule:
+    -   accuracy,
+
+    -   sensibilidade (TPR),\
+
+    -   especificidade (TNR).
+4.  Com a package `pROC`, obtenha a **curva ROC** e a **AUC**.\
+    Interprete a AUC.
+
+```{r}
+
+idx <- sample(seq_len(nrow(dados_titanic)), size = floor(nrow(dados_titanic) * 0.8))
+train <- dados_titanic[idx,]; teste <- dados_titanic[-idx,]
+Xtr <- model.matrix(Survived ~ ., train)[,-1]; ytr <- train$Survived
+Xte <- model.matrix(Survived ~ ., teste)[,-1];  yte <- teste$Survived
+modelo2 <- glm(Survived~.,data = train,family = binomial())
+summary(modelo2)
+modelo3 <- glm(Survived~.,data = teste,family = binomial())
+```
+
+```{r}
+prob_teste <- predict(modelo2,
+                      newdata=teste,
+                      type = "response")
+
+pred_class <- ifelse(prob_teste >= 0.5,1,0)
+
+table(Real = teste$Survived, Predito = pred_class)
+```
+
+---
+Precisão:
+Nos 143 casos que conhecemos o modelo acertou em 118 dos casos
+---
+
+```{r}
+cm <- table(
+  Observado = teste$Survived, 
+  Previsto = pred_class
+)
+
+TP <- cm["1","1"]
+FN <- cm["1","0"]
+FP <- cm["0","1"]
+TN <- cm["0","0"]
+
+sensibilidade  <- TP / (TP + FN)
+especificidade <- TN / (TN + FP)
+sensibilidade
+especificidade
+```
+
+```{r}
+library(pROC)
+
+roc_titanic <- roc(
+  response = teste$Survived,
+  predictor = prob_teste
+)
+
+plot(roc_titanic,main = "Curba ROC")
+auc(roc_titanic)
+```
+
+------------------------------------------------------------------------
+
+# -------------------------------------------------------------
+
+# Exercício 2 — Crédito ao consumo (`Default`, ISLR2)
+
+```{r E2-dados, eval=FALSE}
+library(ISLR2)
+dados_default <- Default
+```
+
+Considere modelar a probabilidade de **incumprimento** (default = "Yes").
+
+1.  Crie $Y = 1$ se `default="Yes"`, $Y=0$ caso contrário.\
+    Explique por que a regressão logística é adequada (e a regressão linear não).
+
+    ```{r}
+    dados_default<-dados_default |> mutate(
+      default = if_else(default == "Yes",1,0)
+    )
+    ```
+
+2.  Divida os dados em **treino (60%)** e **teste (40%)**.\
+    Compare a proporção de incumpridores nos dois conjuntos.
+
+    ```{r}
+    idx <- sample(seq_len(nrow(dados_default)), size = floor(nrow(dados_default) * 0.6))
+    train <- dados_default[idx,]; teste <- dados_default[-idx,]
+    Xtr <- model.matrix(default ~ ., train)[,-1]; ytr <- train$default
+    Xte <- model.matrix(default ~ ., teste)[,-1];  yte <- teste$default
+    ```
+
+3.  Ajuste o modelo:
+
+$$
+\operatorname{logit}\Big(
+P(Y=1 \mid \text{balance}, \text{income}, \text{student})
+\Big)
+=
+\beta_0
++ \beta_1\,\text{balance}
++ \beta_2\,\text{income}
++ \beta_3\,\text{student}.
+$$
+
+Interprete: - o sinal de $\beta_1$ (saldo), - o efeito de ser estudante ($\beta_3$), - o significado de $\exp(\beta_1)$ e $\exp(\beta_3)$ como *odds ratios*.
+
+4.  Usando o modelo, calcule previsões no **teste** com threshold $t=0.5$ e obtenha:
+    -   matriz de confusão,\
+    -   sensibilidade,\
+    -   especificidade.\
+        Comente tendo em conta o risco financeiro de falsos negativos.
+5.  Produza a curva ROC, AUC e determine um threshold ótimo pelo **índice de Youden**.\
+    Compare o desempenho entre $t=0.5$ e o threshold ótimo.
+
+------------------------------------------------------------------------
+
+```{r}
+modelod <- glm(default~income+balance+student,data = train,family = binomial())
+summary(modelod)
+exp(coef(modelod))
+```
+
+---
+O sinal de saldo é positivo, significando que existe uma proporção direta entre o saldo e a o incumprimento, isto é, à medida que o saldo aumenta, maior é a chance de ser incumpridor.
+
+O sinal de studentYes é positivo, e a significância mostra que relativamente a não ser estudante, os estudantes tem maior chance de serem incumpridores.
+
+Pode-se dizer que ???
+---
+
+```{r}
+prob_teste <- predict(modelod,
+                      newdata=teste,
+                      type = "response")
+
+pred_def <- ifelse(prob_teste >= 0.5,1,0)
+
+mc<-table(Real = teste$default, Predito = pred_def)
+mc
+
+TP <- mc["1","1"]
+FN <- mc["1","0"]
+FP <- mc["0","1"]
+TN <- mc["0","0"]
+
+sensibilidade  <- TP / (TP + FN)
+especificidade <- TN / (TN + FP)
+sensibilidade
+especificidade
+```
+
+---
+Eu aicho que é um valor mau, dado que existem mais falsos negativos do que verdadeiros negativos.
+---
+
+```{r}
+roc_def <- roc(
+  response = teste$default,
+  predictor = prob_teste
+)
+
+plot(roc_def,main = "Curba ROC")
+auc(roc_def)
+```

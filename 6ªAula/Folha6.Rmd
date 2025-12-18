@@ -1,0 +1,108 @@
+---
+title: "Exercícios de Regularização (Ridge e Lasso)"
+date: "`r format(Sys.Date(), '%d-%m-%Y')`"
+output: html_document
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 7, fig.height = 4.6)
+set.seed(123)
+```
+
+```{r}
+library(tidyverse)
+library(glmnet)
+```
+
+### Dados
+
+-   `modeldata::ames`
+-   Resposta: `log10(Sale_Price)`
+-   Preditores: **apenas colunas numéricas**.
+
+------------------------------------------------------------------------
+
+## Exercício 1 — Ridge vs OLS (Ames)
+
+1.  Converta inteiros em numéricos e defina `Sale_Price <- log10(Sale_Price)`.
+
+```{r}
+data(ames, package = "modeldata")
+
+num_vars <- names(ames)[sapply(ames, is.numeric)]
+num_vars <- setdiff(num_vars, "Sale_Price")
+dat <- ames[, c("Sale_Price", num_vars)]
+
+dat <- dat |> mutate(across(where(is.integer), as.numeric))
+dat <- dat |> mutate(Sale_Price = log10(Sale_Price))
+```
+2.  Faça *split* treino/teste (80/20).
+```{r}
+set.seed(123)
+idx <- sample.int(nrow(ames), floor(nrow(ames) * 0.8))
+train <- dat[idx, ]
+test  <- dat[-idx, ]
+
+Xtr <- as.matrix(train[, num_vars]); ytr <- train$Sale_Price
+Xte <- as.matrix(test[, num_vars]);  yte <- test$Sale_Price
+
+```
+3.  **OLS**: ajuste `lm(...)`, preveja em teste, calcule RMSE e R².
+```{r}
+fit_ols <- lm(Sale_Price ~ .,data = train)
+pred_ols <- predict(fit_ols,newdata = test)
+
+summary(fit_ols)$r.squared
+
+rmse <- sqrt(mean((yte - pred_ols)^2))
+
+rmse
+```
+4.  **Ridge** (`alpha=0`): ajuste `cv.glmnet(..., nfolds=10)`, preveja em teste com `lambda.min` e compare com OLS.
+```{r}
+set.seed(123)
+cv_ridge <- cv.glmnet(Xtr,ytr,alpha = 0, nfolds=10)
+pred_ridge <- as.numeric(predict(cv_ridge,newx= Xte, s = "lambda.min"))
+
+rmse <- function(y,yhat) sqrt(mean((y-yhat)^2))
+tab_ridge <- data.frame(Modelo = "Ridge (lambda.min)", RMSE = rmse(yte, pred_ridge))
+
+tab_ridge
+```
+5.  **Interpretação:** explique o **compromisso viés–variância** e por que motivo o ridge pode melhorar o RMSE em presença de colinearidade/alta dimensão.
+
+------------------------------------------------------------------------
+
+## Exercício 2 — Lasso (parcimónia e seleção)
+
+1.  Ajuste **lasso** (`alpha=1`) com `cv.glmnet`.
+2.  Reporte `lambda.min` e `lambda.1se`.
+3.  Liste as variáveis com **coeficientes ≠ 0** em `lambda.1se`.
+4.  Compare RMSE de teste entre `lambda.min` e `lambda.1se`.
+5.  **Interpretação:** discuta sinais esperados dos coeficientes e o **trade-off** parcimónia vs desempenho.
+
+------------------------------------------------------------------------
+
+## Exercício 3 — Predições para perfis
+
+### 3.1 Predição para um perfil específico (único)
+
+Considere o seguinte **perfil de casa** (na escala original dos dados):
+
+-   `Gr_Liv_Area = 1800`\
+-   `Year_Built = 2005`\
+-   `Garage_Area = 480`\
+-   `Lot_Area = 9000`
+
+Para **todas as restantes variáveis numéricas**, utilize o **valor mediano do conjunto de treino**.
+
+**Tarefas:**
+
+(a) Obtenha a **predição pontual** de `log10(Sale_Price)` com o **melhor modelo** escolhido (Ridge ou Lasso).\
+(b) Converta a predição para a **escala original do preço**.\
+(c) Calcule **intervalos de previsão (95%)** por *bootstrap* simples (300 réplicas), mantendo o mesmo `λ` selecionado em CV.\
+(d) Apresente uma **tabela** com ponto e intervalo e comente a **ordem de grandeza** e a **incerteza**.
+
+------------------------------------------------------------------------

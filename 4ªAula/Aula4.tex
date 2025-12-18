@@ -1,0 +1,741 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  portuguese,
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Regressão Linear},
+  pdfauthor={Soraia Pereira},
+  pdflang={pt},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Regressão Linear}
+\author{Soraia Pereira}
+\date{2025-11-05}
+\begin{document}
+\maketitle
+
+
+\section{AULA 1 Regressão Linear Simples
+(SLR)}\label{aula-1-regressuxe3o-linear-simples-slr}
+
+\subsection{Motivação: prever e
+explicar}\label{motivauxe7uxe3o-prever-e-explicar}
+
+\begin{itemize}
+\tightlist
+\item
+  Objetivo: modelar \(\mathbb{E}[Y\mid X]\) (reta média condicional) e
+  \textbf{prever} \(Y\) para novos \(X\).
+\item
+  Dois usos:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Explicação}: interpretar \(\beta_1\) (efeito marginal de
+    \(X\)).
+  \item
+    \textbf{Previsão}: obter \(\widehat{Y}\) com incerteza (IC/IP).
+  \end{itemize}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Exemplo base que iremos usar}
+\FunctionTok{data}\NormalTok{(mtcars)}
+\FunctionTok{head}\NormalTok{(mtcars[, }\FunctionTok{c}\NormalTok{(}\StringTok{"mpg"}\NormalTok{, }\StringTok{"wt"}\NormalTok{)], }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                   mpg    wt
+Mazda RX4         21.0 2.620
+Mazda RX4 Wag     21.0 2.875
+Datsun 710        22.8 2.320
+Hornet 4 Drive    21.4 3.215
+Hornet Sportabout 18.7 3.440
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Modelo SLR}\label{modelo-slr}
+
+\[
+Y_i=\beta_0+\beta_1 X_i+\varepsilon_i,\quad i=1,\dots,n
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(\beta_0\) (intercept), \(\beta_1\) (declive).
+\item
+  \(\varepsilon_i\) capta variabilidade não explicada;
+  \(\mathbb{E}[\varepsilon_i]=0\);
+  \(\mathrm{Var}(\varepsilon_i)=\sigma^2\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ajuste do modelo SLR: mpg \textasciitilde{} wt}
+\NormalTok{m\_slr }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ wt, }\AttributeTok{data =}\NormalTok{ mtcars)}
+\FunctionTok{coef}\NormalTok{(m\_slr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(Intercept)          wt 
+  37.285126   -5.344472 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Linearidade na média
+(conceito)}\label{linearidade-na-muxe9dia-conceito}
+
+\[
+\mathbb{E}[Y\mid X] = \beta_0+\beta_1 X
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Linearidade é sobre a \textbf{média condicional}, não sobre cada
+  observação.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfico de dispersão + reta ajustada}
+\FunctionTok{plot}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{wt, mtcars}\SpecialCharTok{$}\NormalTok{mpg,}
+     \AttributeTok{pch=}\DecValTok{19}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Peso (1000 lbs)"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Consumo (mpg)"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(m\_slr, }\AttributeTok{col=}\StringTok{"tomato"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula4_files/figure-pdf/unnamed-chunk-3-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Estimação por MMQ (OLS):
+ideia}\label{estimauxe7uxe3o-por-mmq-ols-ideia}
+
+Minimizar: \[
+\mathrm{RSS}=\sum_{i=1}^n \big(Y_i-\beta_0-\beta_1 X_i\big)^2
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# RSS do modelo}
+\NormalTok{rss }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{residuals}\NormalTok{(m\_slr)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(mtcars)}
+\NormalTok{rss}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 278.3219
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Estimação por MMQ (OLS): expressão
+fechada}\label{estimauxe7uxe3o-por-mmq-ols-expressuxe3o-fechada}
+
+\[
+\hat\beta_1=\frac{\sum (X_i-\bar X)(Y_i-\bar Y)}{\sum (X_i-\bar X)^2},\qquad
+\hat\beta_0=\bar Y-\hat\beta_1 \bar X
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Cálculo manual de beta1 e beta0}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ mtcars}\SpecialCharTok{$}\NormalTok{wt; y }\OtherTok{\textless{}{-}}\NormalTok{ mtcars}\SpecialCharTok{$}\NormalTok{mpg}
+\NormalTok{b1 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{( (x}\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(x))}\SpecialCharTok{*}\NormalTok{(y}\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(y)) ) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{( (x}\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(x))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{ )}
+\NormalTok{b0 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y) }\SpecialCharTok{{-}}\NormalTok{ b1}\SpecialCharTok{*}\FunctionTok{mean}\NormalTok{(x)}
+\FunctionTok{c}\NormalTok{(}\AttributeTok{b0=}\NormalTok{b0, }\AttributeTok{b1=}\NormalTok{b1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       b0        b1 
+37.285126 -5.344472 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Interpretação de
+\(\hat\beta_1\)}{Interpretação de \textbackslash hat\textbackslash beta\_1}}\label{interpretauxe7uxe3o-de-hatbeta_1}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Sinal}: direção (positiva/negativa).
+\item
+  \textbf{Magnitude}: variação média de \(Y\) por 1 unidade de \(X\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m\_slr)}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             Estimate Std. Error   t value     Pr(>|t|)
+(Intercept) 37.285126   1.877627 19.857575 8.241799e-19
+wt          -5.344472   0.559101 -9.559044 1.293959e-10
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Propriedades
+(Gauss--Markov)}\label{propriedades-gaussmarkov}
+
+\begin{itemize}
+\tightlist
+\item
+  Sob \(\mathbb{E}[\varepsilon|X]=0\) e
+  \(\mathrm{Var}(\varepsilon|X)=\sigma^2 I\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Rápida inspeção dos resíduos}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(m\_slr, }\AttributeTok{which=}\DecValTok{1}\NormalTok{)  }\CommentTok{\# resíduos vs ajustados}
+\FunctionTok{plot}\NormalTok{(m\_slr, }\AttributeTok{which=}\DecValTok{2}\NormalTok{)  }\CommentTok{\# QQ{-}plot}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula4_files/figure-pdf/unnamed-chunk-7-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Estimador de \(\sigma^2\) e
+RSE}{Estimador de \textbackslash sigma\^{}2 e RSE}}\label{estimador-de-sigma2-e-rse}
+
+\[
+\hat\sigma^2=\frac{1}{n-2}\sum e_i^2,\quad \mathrm{RSE}=\sqrt{\hat\sigma^2}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sigma2\_hat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{residuals}\NormalTok{(m\_slr)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(n}\DecValTok{{-}2}\NormalTok{)}
+\NormalTok{RSE }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(sigma2\_hat)}
+\FunctionTok{c}\NormalTok{(}\AttributeTok{sigma2\_hat=}\NormalTok{sigma2\_hat, }\AttributeTok{RSE=}\NormalTok{RSE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+sigma2_hat        RSE 
+  9.277398   3.045882 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Erros-padrão dos
+coeficientes}\label{erros-padruxe3o-dos-coeficientes}
+
+\[
+\mathrm{SE}(\hat\beta_1)=\frac{\hat\sigma}{\sqrt{\sum (X_i-\bar X)^2}},\qquad
+\mathrm{SE}(\hat\beta_0)=\hat\sigma\sqrt{\frac{1}{n}+\frac{\bar X^2}{\sum (X_i-\bar X)^2}}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Conferir com o summary()}
+\FunctionTok{summary}\NormalTok{(m\_slr)}\SpecialCharTok{$}\NormalTok{coefficients[,}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(Intercept)          wt 
+   1.877627    0.559101 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Testes \(t\) para
+coeficientes}{Testes t para coeficientes}}\label{testes-t-para-coeficientes}
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_0:\beta_1=0\) vs \(H_1:\beta_1\neq 0\)
+\item
+  Estatística: \(t=\hat\beta_1/\mathrm{SE}(\hat\beta_1)\) (gl \(n-2\))
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Estatística t e p{-}valor para beta1}
+\NormalTok{t\_val }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m\_slr)}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"wt"}\NormalTok{,}\StringTok{"t value"}\NormalTok{]}
+\NormalTok{p\_val }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m\_slr)}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"wt"}\NormalTok{,}\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\FunctionTok{c}\NormalTok{(}\AttributeTok{t=}\NormalTok{t\_val, }\AttributeTok{p=}\NormalTok{p\_val)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            t             p 
+-9.559044e+00  1.293959e-10 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{ICs para coeficientes}\label{ics-para-coeficientes}
+
+\begin{itemize}
+\tightlist
+\item
+  IC \((1-\alpha)\):
+  \(\hat\beta_j \pm t_{1-\alpha/2},\mathrm{SE}(\hat\beta_j)\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(m\_slr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                2.5 %    97.5 %
+(Intercept) 33.450500 41.119753
+wt          -6.486308 -4.202635
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{Medidas de ajuste:
+\(R^2\)}{Medidas de ajuste: R\^{}2}}\label{medidas-de-ajuste-r2}
+
+\[
+R^2 = 1-\frac{\sum e_i^2}{\sum (Y_i-\bar Y)^2}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m\_slr)}\SpecialCharTok{$}\NormalTok{r.squared}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.7528328
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Previsão: ponto \textbar{} IC da média \textbar{} IP
+individual}\label{previsuxe3o-ponto-ic-da-muxe9dia-ip-individual}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ponto, IC da média e IP para wt=3}
+\FunctionTok{predict}\NormalTok{(m\_slr, }\AttributeTok{newdata =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{wt=}\DecValTok{3}\NormalTok{), }\AttributeTok{interval=}\StringTok{"confidence"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       fit      lwr      upr
+1 21.25171 20.12444 22.37899
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(m\_slr, }\AttributeTok{newdata =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{wt=}\DecValTok{3}\NormalTok{), }\AttributeTok{interval=}\StringTok{"prediction"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       fit      lwr      upr
+1 21.25171 14.92987 27.57355
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Pressupostos: visão
+prática}\label{pressupostos-visuxe3o-pruxe1tica}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Linearidade}, \textbf{homoscedasticidade},
+  \textbf{independência}, \textbf{normalidade} (para inferência).
+\item
+  Verificar com gráficos de resíduos e QQ-plots.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Diagnóstico inicial
+(gráficos)}\label{diagnuxf3stico-inicial-gruxe1ficos}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(m\_slr)          }\CommentTok{\# 4 gráficos padrão de diagnóstico}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Aula4_files/figure-pdf/unnamed-chunk-14-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Quando SLR falha
+(indícios)}\label{quando-slr-falha-induxedcios}
+
+\begin{itemize}
+\tightlist
+\item
+  Relação curvilínea, heteroscedasticidade, outliers/influência, omissão
+  de preditores.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Exercícios rápidos --- Aula
+1}\label{exercuxedcios-ruxe1pidos-aula-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Ajusta e interpreta} \texttt{mpg\ \textasciitilde{}\ wt}.
+\item
+  \textbf{Testa} \(H_0!:\beta_1=0\) a 5\%.
+\item
+  \textbf{IC/IP} em \texttt{wt=2.2} e \texttt{wt=3.0}.
+\item
+  \textbf{Diagnóstico}: comenta resíduos vs ajustados e QQ-plot.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{\texorpdfstring{Exercício final --- SLR com
+\texttt{women} (altura →
+peso)}{Exercício final --- SLR com women (altura → peso)}}\label{exercuxedcio-final-slr-com-women-altura-peso}
+
+\textbf{Objetivo:} ajustar e interpretar um modelo de regressão linear
+simples do \textbf{peso} (\texttt{weight}) em função da \textbf{altura}
+(\texttt{height}). \textbf{Dados:} \texttt{women} (R base; 15
+observações de mulheres adultas nos EUA).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph{Tarefas}\label{tarefas}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Inspeção inicial}
+
+  1.1. Carrega \texttt{women}; mostra primeiras linhas e estatísticas
+  resumo.
+
+  1.2. Faz um gráfico de dispersão de \texttt{weight} vs \texttt{height}
+  (peso no eixo Y, altura no X).
+
+  1.3. Comenta visualmente se a relação parece aproximadamente linear.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Ajuste do modelo SLR}
+
+  2.1. Ajusta o modelo: \texttt{weight\ \textasciitilde{}\ height}.
+
+  2.2. Escreve a reta estimada:
+  \(\widehat{\text{weight}} = \hat\beta_0 + \hat\beta_1 \cdot \text{height}\).
+
+  2.3. \textbf{Interpreta} \(\hat\beta_1\) (unidades e significado) e
+  \(\hat\beta_0\) (faz sentido físico? comenta).
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  \textbf{Inferência}
+
+  3.1. Testa \(H_0:\beta_1=0\) a 5\% (apresenta \(t\), p-valor e
+  conclusão).
+
+  3.2. Apresenta o \textbf{IC95\%} para \(\beta_1\).
+
+  3.3. Reporta \textbf{RSE} e \textbf{(R\^{}2)}; comenta a qualidade de
+  ajuste.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  \textbf{Previsão}
+
+  4.1. Obtém \textbf{previsão pontual}, \textbf{IC da média} e
+  \textbf{IP individual} para \texttt{height\ =\ 66} e
+  \texttt{height\ =\ 70}.
+
+  4.2. Compara as larguras de IC vs IP e entre as duas alturas (mais
+  longe da média → maior incerteza?).
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  \textbf{Diagnóstico}
+
+  5.1. Mostra os 4 gráficos padrão (\texttt{plot(lm\_obj)}) e comenta:
+  linearidade (resíduos vs ajustados) e normalidade (QQ-plot).
+
+  5.2. Há alguma observação com \textbf{alta influência} (Cook)?
+  Identifica-a e comenta o impacto potencial.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Referências}\label{referuxeancias}
+
+\begin{itemize}
+\tightlist
+\item
+  James, Witten, Hastie, Tibshirani (2023). \emph{An Introduction to
+  Statistical Learning}, 2.ª ed., Cap. 3.
+\item
+  R base: \texttt{?lm}, \texttt{plot.lm}, \texttt{predict.lm},
+  \texttt{anova.lm}.
+\item
+  Pacotes úteis: \texttt{car} (VIF, avPlots), \texttt{lmtest} (BP, DW),
+  \texttt{sandwich} (SE robustos).
+\end{itemize}
+
+
+
+
+\end{document}
